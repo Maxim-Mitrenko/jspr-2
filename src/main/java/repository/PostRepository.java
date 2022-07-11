@@ -2,11 +2,13 @@ package repository;
 
 import exception.NotFoundException;
 import model.Post;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class PostRepository {
     private final List<Post> posts = new ArrayList<>();
     private int size = 0;
