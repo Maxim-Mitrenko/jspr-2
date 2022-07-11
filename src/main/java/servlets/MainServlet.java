@@ -1,9 +1,9 @@
 package servlets;
 
+import config.Config;
 import controller.PostController;
 import exception.NotFoundException;
-import repository.PostRepository;
-import service.PostService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +20,8 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        this.controller = new PostController(service);
+        final var context = new AnnotationConfigApplicationContext(Config.class);
+        this.controller = context.getBean(PostController.class);
     }
 
     @Override
