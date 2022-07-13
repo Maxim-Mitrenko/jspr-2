@@ -3,12 +3,12 @@ package repository;
 import exception.NotFoundException;
 import model.Post;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PostRepository {
-    private final List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new CopyOnWriteArrayList<>();
     private int size = 0;
 
     public List<Post> all() {
