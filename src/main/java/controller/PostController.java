@@ -38,11 +38,11 @@ public class PostController {
         final var objectMapper = new ObjectMapper();
         final var post = objectMapper.readValue(body, Post.class);
         final var data = service.save(post);
-        response.getWriter().print(data);
+        final var gson = new Gson();
+        response.getWriter().print(gson.toJson(data));
     }
 
-    public void removeById(long id, HttpServletResponse response) throws IOException {
+    public void removeById(long id) {
         service.removeById(id);
-        response.getWriter().print("Пост успешно удален!");
     }
 }
