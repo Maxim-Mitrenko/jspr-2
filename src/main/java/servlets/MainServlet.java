@@ -33,13 +33,13 @@ public class MainServlet extends HttpServlet {
             if (method.equals(GET) && path.equals(PATH)) {
                 controller.all(resp);
             } else if (method.equals(GET) && path.contains(PATH_WITH_ARGUMENTS)) {
-                final var id = Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
+                final var id = parse(path);
                 controller.getById(id, resp);
             } else if (method.equals(POST) && path.equals(PATH)) {
                 controller.save(req.getReader(), resp);
             } else if (method.equals(DELETE) && path.contains(PATH_WITH_ARGUMENTS)) {
-                final var id = Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
-                controller.removeById(id, resp);
+                final var id = parse(path);
+                controller.removeById(id);
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
@@ -49,5 +49,9 @@ public class MainServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();
         }
+    }
+
+    public long parse(String path) {
+        return Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
     }
 }

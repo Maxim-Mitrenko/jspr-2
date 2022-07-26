@@ -1,7 +1,7 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.hc.core5.net.WWWFormCodec;
 
 import java.nio.charset.StandardCharsets;
 
@@ -16,7 +16,7 @@ public class Post {
             @JsonProperty("content")
             String content) {
         this.id = id;
-        this.content = URLEncodedUtils.parse(content, StandardCharsets.UTF_8).get(0).getName();
+        this.content = WWWFormCodec.parse(content, StandardCharsets.UTF_8).get(0).getName();
 
     }
 

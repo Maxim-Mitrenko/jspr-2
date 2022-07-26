@@ -6,10 +6,11 @@ import model.Post;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostRepository {
     private final List<Post> posts = new CopyOnWriteArrayList<>();
-    private int size = 0;
+    private final AtomicInteger size = new AtomicInteger();
 
     public List<Post> all() {
         return posts;
@@ -23,7 +24,7 @@ public class PostRepository {
 
     public Post save(Post post) {
         if (post.getId() == 0) {
-            post.setId(++size);
+            post.setId(size.addAndGet(1));
             posts.add(post);
         } else {
             final var found = getById(post.getId()).orElseThrow(NotFoundException::new);
