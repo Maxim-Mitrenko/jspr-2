@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostRepository {
+
     private final Map<Long, Post> posts = new ConcurrentHashMap<>();
     private final AtomicInteger size = new AtomicInteger(0);
 
@@ -34,6 +35,7 @@ public class PostRepository {
     }
 
     public void removeById(long id) {
-        posts.remove(id);
+        var result = posts.remove(id);
+        if (result == null) throw new NotFoundException();
     }
 }
